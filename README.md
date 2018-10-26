@@ -49,7 +49,7 @@ Finally I wanted to see if we could save the previous model by throwing in anoth
 
 Performance improved drastically as soon as I removed all fully-connected layers.  However, deeper convolutional autoencoders perform about as well as our first 1-hidden-layer fully-connected model.  For this reason I'm starting this section with a shallow model - the entire autoencoder looks like Conv->MaxPool->Conv->Upsample->Conv->Conv.
 
-![Shallow Conv](/images/Shallow-Conv.png')
+![Shallow Conv](/images/Shallow-Conv.png)
 
 We get another performance boost by replacing max pooling layers with strided convolutions.  The MaxPool layer above is replaced with a Conv with num_channels=32, kernel_size=3 and strides=2.
 
