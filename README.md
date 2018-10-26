@@ -4,7 +4,7 @@ Making an autoencoder for the MNIST dataset is almost too easy nowadays.  Even a
 
 [MNIST image]
 
-The network architecture here consisted of fully-connected layers of sizes 100, 100, 100, 784, respectively.  You might notice that these numbers weren't carefully chosen --- indeed, I've gotten similar results on networks with many fewer hidden units as well as networks with only 1 or 2 hidden layers.  
+(MNIST images are on the left and autoencoder-reconstructed images are on the right) The network architecture here consisted of fully-connected layers of sizes 100, 100, 100, 784, respectively.  You might notice that these numbers weren't carefully chosen --- indeed, I've gotten similar results on networks with many fewer hidden units as well as networks with only 1 or 2 hidden layers.  
 
 The same can't be said for the Cifar datasets.  The reason for this isn't so much the 3 color channels or the slightly larger pixel count, but rather the internal complexity of the Cifar images.  Compared to simple handwritten digits, there's much more going on, and much more to keep track of, in each Cifar image.  I decided to try a few popular architectures to see how they stacked up against each other.  Here's what I found:
 
@@ -21,6 +21,40 @@ Finally, my sample sizes are far too small to be sure of any of my above conclus
 
 
 # Some Poor-Performance Autoencoders
+ # Fully Connected
+I wanted to start with a straightforward comparison between the simplicity of the MNIST dataset versus the complexity of the Cifar datasets.  So, I tried several autoencoders made solely of fully connected layers.  The results were not great - all models constructed blurry images from which it would be difficult to extract class labels.  One slightly surprising result here is that the more layers, the worse the performance.  
+
+[1024-3072-dense-5epochs image]
+
+[3072-2048-1024-3072-5epochs image]
+
+To be fair, the larger model may simply need more training time to catch up to the smaller one.  
+
+ # Convolutional + Fully Connected
+Next I tried models which begin and end with convolution layers, but which have some dense layers in the middle.  The main idea was that convolutional filters should be able to pick up on certain geometric features, and the dense layers might be able to figure out a representation for these features.  Again the results were not very promising, but maybe more training time would improve the models.
+
+[Conv + Dense image/images]
+
+ # Convolutional + Fully Connected + Batch Normalization 
+Finally I wanted to see if we could save the previous model by throwing in another convolutional layer before the fully connected layers, and inserting some batch normalization layers here and there.  Some of these models performed similarly to the previous models, some performed worse, and one in particular performed so poorly I had to include the image here:
+
+[Kitchen Sink image]
+
+# Performant Autoencoders
+
+Performance improved drastically as soon as I removed all fully-connected layers.  Here's the results of a simple purely convolutional autoencoder after training for just two epochs:
+
+[conv autoencoder 2 epochs image]
+
+We get another performance boost by replacing max pooling layers with strided convolutions:
+
+[Conv autoencoder w/ strided convs 2 epochs]
+
+Finally, we throw in some batch normalization layers and call it a day - the reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
+
+# A De-noising Autoencoder
+
+As a quick application, we train our most performant model above as a de-noising autoencoder.  
 
 
 
