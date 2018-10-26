@@ -12,8 +12,8 @@ The same can't be said for the Cifar datasets.  The reason for this isn't so muc
  - Reducing the image size too many times (down to 4 x 4 x num_channels, say) destroys performance, regardless of pooling method
  - Max Pooling is OK, but strided convolutions work better
  - Batch Normalization layers do give small but noticable benefits
- - 3 convolutional layers in the encoder portion of the model seems to be the minimum number to get really good performance
- 
+ - Shallow autoencoders give good results and train quickly
+ - Deep convolutional autoencoders actually get *worse* results than shallow unless batch normalization is used
 
 A word before moving on:  Throughout, all activations are ReLU except for the last layer, which is sigmoid.  All training images have been normalized so their pixel values lie between 0 and 1.  All networks were trained for 10 or fewer epochs, and many were trained for only 2 epochs.  I didn't carry out any sort of hyperparameter searches, although I did increase the number of hidden units in a layer from time to time, when the network seemed to be having real trouble learning.  I found that mean squared error worked better as a loss function than categorical or binary crossentropy, so that's what I used.  Each network used the Adam optimizer available in Keras.  
 
@@ -35,7 +35,7 @@ This model has three hidden layers with 3072, 2048, 1024 units, respectively.  T
 To be fair, the larger model may simply need more training time to catch up to the smaller one.  
 
 ## Convolutional + Fully Connected
-Next I tried models which begin and end with convolution layers, but which have some dense layers in the middle.  The main idea was that convolutional filters should be able to pick up on certain geometric features, and the dense layers might be able to figure out a representation for these features.  Again the results were not very promising, but maybe more training time would improve the models.
+Next I tried models which begin and end with convolution layers, but which have some dense layers in the middle.  The main idea was that convolutional filters should be able to pick up on certain geometric features, and the dense layers might be able to figure out a representation for these features.  Again the results were not very promising, but maybe more training time would improve the models.  The following image came from a model with structure Conv->Pool->Conv->Pool->Conv->Dense->Dense->Upsample->Conv->Upsample->Conv, where each convolution except the final one has num_channels=32, kernel_size=3, strides=1, padding=same, activation=relu.  The final convolution is a 1x1 convolution with sigmoid activation.  This model was trained for 5 epochs.
 
 ![Convolutional + Dense](/images/ConvDense-8-8-32-minsize.png)
 
@@ -56,6 +56,8 @@ We get another performance boost by replacing max pooling layers with strided co
 [Conv autoencoder w/ strided convs 2 epochs]
 
 Finally, we throw in some batch normalization layers and call it a day - the reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
+
+[Conv + strided + BN]
 
 # A De-noising Autoencoder
 
