@@ -27,6 +27,8 @@ I wanted to start with a straightforward comparison between the simplicity of th
 ![Dense w/ One Hidden Layer](/images/1024-3072-Dense-5epochs.png)
 This model has just one hidden layer with 1024 units.  Trained for 5 epochs.
 
+
+
 ![Dense w/ Three Hidden Layers](/images/3072-2048-1024-3072-Dense-5epochs.png)
 This model has three hidden layers with 3072, 2048, 1024 units, respectively.  Trained for 5 epochs.
 
