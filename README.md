@@ -47,15 +47,15 @@ Finally I wanted to see if we could save the previous model by throwing in anoth
 
 # Performant Autoencoders
 
-Performance improved drastically as soon as I removed all fully-connected layers.  Here's the results of a simple purely convolutional autoencoder after training for just two epochs:
+Performance improved drastically as soon as I removed all fully-connected layers.  However, deeper convolutional autoencoders perform about as well as our first 1-hidden-layer fully-connected model.  For this reason I'm starting this section with a shallow model - the entire autoencoder looks like Conv->MaxPool->Conv->Upsample->Conv->Conv.
 
-[conv autoencoder 2 epochs image]
+![Shallow Conv](/images/Shallow-Conv.png')
 
-We get another performance boost by replacing max pooling layers with strided convolutions:
+We get another performance boost by replacing max pooling layers with strided convolutions.  The MaxPool layer above is replaced with a Conv with num_channels=32, kernel_size=3 and strides=2.
 
-[Conv autoencoder w/ strided convs 2 epochs]
+![Shallow Conv w/ Strided Convs]{/images/Shallow-Conv-Strided-Convs.png)
 
-Finally, we throw in some batch normalization layers and call it a day - the reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
+Next I started adding on more and more convolution layers and strided convolutions instead of max pooling, and the results actually started getting worse and worse.  Feel free to try this on your own.  However, a few batch normalization layers here and there really saved the performance of the model, and gave the best-performing model of the lot.  The reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
 
 [Conv + strided + BN]
 
