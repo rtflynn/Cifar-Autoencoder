@@ -43,7 +43,7 @@ Next I tried models which begin and end with convolution layers, but which have 
 ## Convolutional + Fully Connected + Batch Normalization 
 Finally I wanted to see if we could save the previous model by throwing in another convolutional layer before the fully connected layers, and inserting some batch normalization layers here and there.  Some of these models performed similarly to the previous models, some performed worse, and one in particular performed so poorly I had to include the image here:
 
-[Kitchen Sink image]
+![Conv + FC + BN](/images/Everything-including-kitchn-sink.png)
 
 # Performant Autoencoders
 
