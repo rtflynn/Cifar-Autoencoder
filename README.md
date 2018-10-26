@@ -24,9 +24,11 @@ Finally, my sample sizes are far too small to be sure of any of my above conclus
 ## Fully Connected
 I wanted to start with a straightforward comparison between the simplicity of the MNIST dataset versus the complexity of the Cifar datasets.  So, I tried several autoencoders made solely of fully connected layers.  The results were not great - all models constructed blurry images from which it would be difficult to extract class labels.  One slightly surprising result here is that the more layers, the worse the performance.  
 
-[1024-3072-dense-5epochs image]
+![Dense w/ One Hidden Layer](/images/1024-3072-Dense-5epochs.png)
+This model has just one hidden layer with 1024 units.  Trained for 5 epochs.
 
-[3072-2048-1024-3072-5epochs image]
+![Dense w/ Three Hidden Layers](/images/3072-2048-1024-3072-Dense-5epochs.png)
+This model has three hidden layers with 3072, 2048, 1024 units, respectively.  Trained for 5 epochs.
 
 To be fair, the larger model may simply need more training time to catch up to the smaller one.  
 
