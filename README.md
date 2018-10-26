@@ -2,7 +2,7 @@
 
 Making an autoencoder for the MNIST dataset is almost too easy nowadays.  Even a simple 3 hidden layer network made of fully-connected layers can get good results after less than a minute of training on a CPU:
 
-[MNIST image]
+![MNIST 100-100-100-784](/images/100-100-100-784-10epochs.png)
 
 (MNIST images are on the left and autoencoder-reconstructed images are on the right) The network architecture here consisted of fully-connected layers of sizes 100, 100, 100, 784, respectively.  You might notice that these numbers weren't carefully chosen --- indeed, I've gotten similar results on networks with many fewer hidden units as well as networks with only 1 or 2 hidden layers.  
 
