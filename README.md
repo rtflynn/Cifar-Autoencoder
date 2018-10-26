@@ -21,7 +21,7 @@ Finally, my sample sizes are far too small to be sure of any of my above conclus
 
 
 # Some Poor-Performance Autoencoders
- # Fully Connected
+## Fully Connected
 I wanted to start with a straightforward comparison between the simplicity of the MNIST dataset versus the complexity of the Cifar datasets.  So, I tried several autoencoders made solely of fully connected layers.  The results were not great - all models constructed blurry images from which it would be difficult to extract class labels.  One slightly surprising result here is that the more layers, the worse the performance.  
 
 [1024-3072-dense-5epochs image]
@@ -30,12 +30,12 @@ I wanted to start with a straightforward comparison between the simplicity of th
 
 To be fair, the larger model may simply need more training time to catch up to the smaller one.  
 
- # Convolutional + Fully Connected
+## Convolutional + Fully Connected
 Next I tried models which begin and end with convolution layers, but which have some dense layers in the middle.  The main idea was that convolutional filters should be able to pick up on certain geometric features, and the dense layers might be able to figure out a representation for these features.  Again the results were not very promising, but maybe more training time would improve the models.
 
 [Conv + Dense image/images]
 
- # Convolutional + Fully Connected + Batch Normalization 
+## Convolutional + Fully Connected + Batch Normalization 
 Finally I wanted to see if we could save the previous model by throwing in another convolutional layer before the fully connected layers, and inserting some batch normalization layers here and there.  Some of these models performed similarly to the previous models, some performed worse, and one in particular performed so poorly I had to include the image here:
 
 [Kitchen Sink image]
