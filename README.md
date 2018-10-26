@@ -37,7 +37,8 @@ To be fair, the larger model may simply need more training time to catch up to t
 ## Convolutional + Fully Connected
 Next I tried models which begin and end with convolution layers, but which have some dense layers in the middle.  The main idea was that convolutional filters should be able to pick up on certain geometric features, and the dense layers might be able to figure out a representation for these features.  Again the results were not very promising, but maybe more training time would improve the models.
 
-[Conv + Dense image/images]
+![Convolutional + Dense](/images/ConvDense-8-8-32-minsize.png)
+
 
 ## Convolutional + Fully Connected + Batch Normalization 
 Finally I wanted to see if we could save the previous model by throwing in another convolutional layer before the fully connected layers, and inserting some batch normalization layers here and there.  Some of these models performed similarly to the previous models, some performed worse, and one in particular performed so poorly I had to include the image here:
