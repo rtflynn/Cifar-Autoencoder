@@ -13,9 +13,11 @@ The same can't be said for the Cifar datasets.  The reason for this isn't so muc
  - Max Pooling is OK, but strided convolutions work better
  - Batch Normalization layers do give small but noticable benefits
  - Shallow autoencoders give good results and train quickly
- - Deep convolutional autoencoders actually get *worse* results than shallow unless batch normalization is used
+ - Deep convolutional autoencoders actually get *worse* results than shallow 
 
 A word before moving on:  Throughout, all activations are ReLU except for the last layer, which is sigmoid.  All training images have been normalized so their pixel values lie between 0 and 1.  All networks were trained for 10 or fewer epochs, and many were trained for only 2 epochs.  I didn't carry out any sort of hyperparameter searches, although I did increase the number of hidden units in a layer from time to time, when the network seemed to be having real trouble learning.  I found that mean squared error worked better as a loss function than categorical or binary crossentropy, so that's what I used.  Each network used the Adam optimizer available in Keras.  
+
+Also a quick note on the purpose of this autoencoder:  only some of the models below achieve a representation of smaller size than the input image was.  My goal here isn't to come up with a data-compression scheme, so I'm fine with this.  Rather, I'd like to build a noise-cancelling autoencoder, so I'm very happy with whatever works, even if the latent representation is several times larger than the original image.
 
 Finally, my sample sizes are far too small to be sure of any of my above conclusions.  Anyone interested should play around with different sizes, numbers, and types of layers to see for themselves what works and what doesn't work.  Also, these images are so small that once an autoencoder becomes "good enough", it's hard for the human eye to see the difference between one model and another.  We could look at the loss function, but mean-squared-error leaves a lot to be desired and probably won't help us discriminate between the best models.  
 
@@ -55,7 +57,7 @@ We get another performance boost by replacing max pooling layers with strided co
 
 ![Shallow Conv w/ Strided Convs](/images/Shallow-Conv-Strided-Convs.png)
 
-Next I started adding on more and more convolution layers and strided convolutions instead of max pooling, and the results actually started getting worse and worse.  Feel free to try this on your own.  However, a few batch normalization layers here and there really saved the performance of the model, and gave the best-performing model of the lot.  The reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
+Next I started adding on more and more convolution layers with strided convolutions in place of pooling, and the results actually started getting worse and worse.  Feel free to try this on your own.  However, a few batch normalization layers here and there helped with performance.  Even so, the models with more layers still do worse than the simpler, shorter models, at least with the small amount of training time I'm able to put into them.  Anyone with access to a GPU should try and see what is possible with a deeper model and a lot more training.  The best performance I was able to achieve was by combining shallow convolutions + strided convolutions + batch normalization.  The reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
 
 [Conv + strided + BN]
 
