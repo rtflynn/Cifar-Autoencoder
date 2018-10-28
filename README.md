@@ -59,7 +59,7 @@ We get another performance boost by replacing max pooling layers with strided co
 
 Next I started adding on more and more convolution layers with strided convolutions in place of pooling, and the results actually started getting worse and worse.  Feel free to try this on your own.  However, a few batch normalization layers here and there helped with performance.  Even so, the models with more layers still do worse than the simpler, shorter models, at least with the small amount of training time I'm able to put into them.  Anyone with access to a GPU should try and see what is possible with a deeper model and a lot more training.  The best performance I was able to achieve was by combining shallow convolutions + strided convolutions + batch normalization.  The reconstructed images are so good that I can't tell the difference between autoencoder input and output.  We can keep trying to reduce the loss by playing with hyperparameters and network architecture, but at this resolution it really won't make a visual difference.  It would be interesting to continue this process on images of higher resolution, simply to see what sort of qualitative changes in the reconstructed images emerge from certain choices of regularization, architecture, etc.
 
-[Conv + strided + BN]
+![Conv + Strided Conv + BN](/images/shallow-conv-with-BN-4epochs.png)
 
 # A De-noising Autoencoder
 
