@@ -43,13 +43,14 @@ model.summary()
 
 # We want to add different noise vectors for each epoch
 num_epochs = 3
+NOISE = 0.3     # Set to 0 for a regular (non-denoising...) autoencoder
 for i in range(num_epochs):
-    noise = np.random.normal(0, 0.3, x_train.shape)
+    noise = np.random.normal(0, NOISE, x_train.shape)
     model.fit(x_train + noise, x_train, epochs=1, batch_size=100)
 
 
 x_test = x_test[:400]
-noise = np.random.normal(0, 0.3, x_test.shape)
+noise = np.random.normal(0, NOISE, x_test.shape)
 pred_imgs = model.predict(x_test + noise)
 
 plt.imshow(sbscompare(x_test + noise, pred_imgs, 20, 20))
