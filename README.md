@@ -63,9 +63,19 @@ Next I started adding on more and more convolution layers with strided convoluti
 
 # A De-noising Autoencoder
 
-As a quick application, we train our most performant model above as a de-noising autoencoder.  
+As a quick application, I trained the most performant model above as a pair of denoising autoencoders.  The first one is trained on the Cifar training set, normalized to the interval [0,1], with noise coming from a normal distribution with mean 0 and standard deviation 1:
 
+![Noisy and denoised images, std dev 1](/images/denoise-with-bn-noise100-9epochs.png)
 
+The second one was trained to a more reasonable task - the normal distribution now has mean 0 and standard deviation 0.3.
+
+![Noisy and denoised images, std dev 0.3](/images/denoise-with-bn-noise30-9epochs.png)
+
+Finally we look at what happens when we use the previous (std. dev. 0.3 noise) autoencoder on a set of test images which have not had noise added to them. 
+
+![Cifar and 'denoised' images](/images/denoising-images-with-no-noise.png)
+
+As you can see, this model is doing some sort of probabilistic "smearing out" of the image so that the effects of noise cancel each other out.  That is, this model doesn't know what a Cifar image ought to look like, and instead just does something like a simple weighted average over neighbors to determine the output intensities for a given input image.
 
 
 
